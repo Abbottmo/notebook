@@ -162,3 +162,12 @@ This loss combines a **Sigmoid layer and the BCELoss** in one single class. This
 $$
 loss(x_i,y_i) = -w_i[y_ilog(\sigma(x_i)) + (1-y_i)log(1-\sigma(x_i))]
 $$
+![image-20201117161755750](img/image-20201117161755750.png)
+
+#### nn.SmoothL1Loss
+
+$$
+loss(x,y) = \frac{1}{N}\sum_{i}{\begin{cases} 0.5(x_i-y_i)^2 /beta,\quad if |x_i - y_i| < beta \\ |x_i-y_i|-0.5*beta,\quad otherwise   \end{cases}}
+$$
+
+![image-20201117161647372](img/image-20201117161647372.png)
