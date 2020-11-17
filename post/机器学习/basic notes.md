@@ -77,6 +77,8 @@ $$
 
 nn.CrossEntropyLoss() 包含了`nn.LogSoftmax()` and `nn.NLLLoss()` in one single class.
 
+This criterion expects a class index in the range[0,C−1] as the target for each value of a 1D tensor of size minibatch;  这里期待放入**的是类别的索引**
+
 ![image-20201117155952163](img/image-20201117155952163.png)
 
 注意输入与输出的维度
@@ -148,6 +150,10 @@ print(log(0.6))
 #### nn.BCEloss
 
 使用nn.BCELoss需要在该层前面加上Sigmoid函数。
+
+This is used for measuring the error of a reconstruction in for example an auto-encoder. Note that the targets y should be numbers between 0 and 1.
+
+**输入的targets y 是0 或 1**
 
 计算公式
 $$
