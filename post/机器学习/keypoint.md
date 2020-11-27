@@ -42,3 +42,11 @@ mask 数据增广
 
 
 重点关注了 训练数据生成的热力图，改进了热度图的训练
+
+
+
+### hourglass
+
+项目中使用的hourglass 损失函数设计威mse loss ，实际上并不合理，改进点包括centernet 中的guassian map 改进，对热力图进行改进，实际上一个map上绝大部分都是稀疏的，只有关键点部分的值是贡献的，
+
+loss 的改进，mse的loss 感觉不是很合理，相当于分类，
