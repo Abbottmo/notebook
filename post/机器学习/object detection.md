@@ -413,3 +413,52 @@ Mosaic数据增强提出的作者也是来自Yolov5团队的成员，不过，**
 
 在网络训练中，网络在初始锚框的基础上输出预测框，进而和**真实框groundtruth**进行比对，计算两者差距，再反向更新，**迭代网络参数**。
 
+**（3）自适应图片缩放**
+
+因此在Yolov5的代码中datasets.py的letterbox函数中进行了修改，对原始图像**自适应的添加最少的黑边**。
+
+
+
+backbone
+
+**Focus结构**
+
+以Yolov5s的结构为例，原始608*608*3的图像输入Focus结构，采用切片操作，先变成304*304*12的特征图，再经过一次32个卷积核的卷积操作，最终变成304*304*32的特征图。
+
+![preview](img/focus.jpg)
+
+**（2）CSP结构**
+
+Yolov5中设计了两种CSP结构，以**Yolov5s网络**为例，**CSP1_X结构**应用于**Backbone主干网络**，另一种**CSP2_X**结构则应用于**Neck**中。
+
+![preview](img/v2-76933f7cd2400be642a0ad48e8c401e4_r.jpg)
+
+### 
+
+neck
+
+Yolov5现在的Neck和Yolov4中一样，都采用FPN+PAN的结构，但在Yolov5刚出来时，只使用了FPN结构，后面才增加了PAN结构，此外网络中其他部分也进行了调整。
+
+![preview](img/yolov5neck.jpg)
+
+
+
+输出端
+
+**（1）Bounding box损失函数**
+
+在[《深入浅出Yolo系列之Yolov3&Yolov4核心基础知识完整讲解》](https://zhuanlan.zhihu.com/p/143747206)中，大白详细的讲解了IOU_Loss，以及进化版的GIOU_Loss，DIOU_Loss，以及CIOU_Loss。
+
+Yolov5中采用其中的GIOU_Loss做Bounding box的损失函数。
+
+
+
+**Yolov5四种网络结构的不同点**
+
+Yolov5代码中的四种网络，和之前的Yolov3，Yolov4中的**cfg文件**不同，都是以**yaml**的形式来呈现。
+
+而且四个文件的内容基本上都是一样的，只有最上方的**depth_multiple**和**width_multiple**两个参数不同，很多同学看的**一脸懵逼**，不知道只通过两个参数是如何控制四种结构的？
+
+
+
+![image-20201201105008447](img/image-20201201105008447.png)
