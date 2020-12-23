@@ -146,3 +146,76 @@ apt-get install libxext-dev
 
 ```
 
+
+
+##### python
+
+```python
+
+## https://zhuanlan.zhihu.com/p/124870204
+    
+1. Python的列表为什么慢
+Python的列表是一个动态的数组，即数组的size是可以调整的，数组存放着指向各个列表元素的指针(PyObject*)。列表中的各个元素可以是不同的类型，比如my_list = ['a', 1, True]。实际上数组里存放了三个指针，分别指向了这三个元素。那么相比其他语言的数组而言，为什么Python的列表会慢呢？原因主要是以下两个：
+
+1. Python是动态类型语言，意味着类型检查要耗费额外的时间。
+
+2. Python或者说Cpython没有JIT优化器。
+
+2. 如何用Python执行快速的数组计算
+目前比较主流的解决方案有如下几种：
+
+1. Numpy - Numpy的array更像是C/C++的数组，数据类型一致，而且array的方法(如sum)都是用C来实现的。
+
+2. Numba - 使用JIT技术，优化Numpy的性能。无论是调用Numpy的方法，还是使用for循环遍历Numpy数组，都可以得到性能提升。
+
+3. Numexpr - 避免Numpy为中间结果分配内存，优化Numpy性能，主要用于大数组的表达式计算。
+
+4. Cython - 为Python编写C/C++扩展。
+
+接下来通过两个例子来演示如何通过这四种工具
+
+
+快速的计算方式
+numpy
+import numpy as np
+def sqr_sum(arr):
+    return (arr ** 2).sum()
+
+arr = np.array(arr)
+print("The result is:", sqr_sum(arr))
+9.66 µs 
+
+numba 
+from numba import jit
+@jit(nopython=True)
+def sqr_sum(arr):
+    return (arr ** 2).sum()
+
+arr = np.array(arr)
+print("The result is:", sqr_sum(arr))
+%timeit sqr_sum(arr)
+The result is: 333283335000
+3.39 µs
+
+Cython
+
+cimport numpy as np
+ctypedef np.int_t DTYPE_t
+
+def sqr_sum(np.ndarray[DTYPE_t] arr):
+    cdef:
+        DTYPE_t total = 0
+        DTYPE_t x
+        int i = 0
+        int n = len(arr)
+    while i < n:
+        total += arr[i] ** 2
+        i += 1
+    return total
+arr = np.array(arr, dtype="int")
+print("The result is:", sqr_sum(arr))
+
+The result is: 333283335000
+5.51 µs 
+```
+

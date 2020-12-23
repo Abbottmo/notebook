@@ -287,3 +287,60 @@ def MSRCP(img, sigma_list, low_clip, high_clip):
 
 ```
 
+
+
+
+
+
+
+## 图像坐标变换
+
+极坐标变换
+
+举例：（11, 13）以（3, 5）为中心进行极坐标变换
+
+```python
+import math
+r = math.sqrt(math.pow(11-3, 2) + math.pow(13-5, 2))
+theta = math.atan2(13-5, 11-3)/math.pi*180							#转换为角度
+print(r, theta)
+
+1.将笛卡尔坐标转换为极坐标
+
+cv2.cartToPolar  #计算梯度和幅值
+OpenCV中的函数cartToPolar(x,y[,magnitude[, angle[,angleIndegress ]]])实现的就是将原点移动到变换中心后的笛卡尔积坐标向极坐标的变换，返回值magnitude,angle是与参数x,y具有相同尺寸和数据类型的ndarray。angleInDegrees的值为True时，返回值为角度，反之返回值为弧度。
+
+
+计算（0，0）、（1，0）、（2，0）、（0，1）、（1，1）、（2，1）、（0，2）、（1，2）、（2，2）这九个点以(1,1)为中心进行的坐标转换。首先将坐标原点移动到(1,1)处，按照平移放射矩阵计算出这九个点平移后的新坐标值，然后利用函数cartToPolar进行极坐标的转换。代码表示为：
+import cv2
+import numpy as np
+x=np.array([[0,1,2],[0,1,2],[0,1,2]],np.float64)-1
+y=np.array([[0,0,0],[1,1,1],[2,2,2]],np.float64)-1
+r,theta = cv2.cartToPolar(x,y,angleInDegrees=True)
+print("r: %s"%r)
+print("theta: %s"%theta)
+
+
+2.将极坐标转换为笛卡儿坐标
+
+在OpenCV中的实现函数是 cv2.polarToCart(magnitude,angle[,x[, y[, angleInDegrees ]]] )来实现将极坐标转化为笛卡尔坐标。其参数与cartToPolar参数类似。代码举例 实现 根据极坐标系的(30,20),(31,21),(30,10),(30,10)四个点计算迪卡儿坐标系的哪四个点以（-6，6）为中心变换得到的。
+
+import cv2
+import numpy as np
+ # 将迪卡儿坐标转换为极坐标
+angle = np.array([[30, 31], [30, 30]], np.float32)
+r = np.array([[20, 21], [10, 10]], np.float32)
+x, y = cv2.polarToCart(r, angle, angleInDegrees=True)
+print("变换中心为（0,0) 得到的四个迪卡儿坐标")
+print("x: %s" % x)
+print("y: %s" % y)
+ 
+x+=-6
+y+=6
+print("变换中心为（-6,6) 得到的四个迪卡儿坐标")
+print("x: %s" % x)
+print("y: %s" % y)
+
+
+```
+
