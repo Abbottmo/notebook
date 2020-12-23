@@ -80,8 +80,15 @@ import hello
 
 
 
+引用
 
+<<<<<<< .mine
 Reference
+
+=======
+[cython 加速]: https://www.zhihu.com/column/c_1045627328318803968
+[cython 中文文档]: https://www.bookstack.cn/read/cython-doc-zh/README.md
+>>>>>>> .theirs
 
 [cython 加速](https://www.zhihu.com/column/c_1045627328318803968 )
 
