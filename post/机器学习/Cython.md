@@ -73,13 +73,17 @@ import hello
 
 ```
 
-使用cython 编译c的例子，用于图像处理中的加速
-
-[使用cython 编译c的例子，用于图像处理中的加速]: ./cython_example	"cython"
 
 
+[使用cython 编译c的例子，用于图像处理中的加速](./cython_example)
 
 
 
 
+
+Reference
+
+[cython 加速](https://www.zhihu.com/column/c_1045627328318803968 )
+
+[cython 中文文档](https://www.bookstack.cn/read/cython-doc-zh/README.md)
 
