@@ -73,3 +73,13 @@ import hello
 
 ```
 
+使用cython 编译c的例子，用于图像处理中的加速
+
+[使用cython 编译c的例子，用于图像处理中的加速]: ./cython_example	"cython"
+
+
+
+
+
+
+
