@@ -177,3 +177,58 @@ loss(x,y) = \frac{1}{N}\sum_{i}{\begin{cases} 0.5(x_i-y_i)^2 /beta,\quad if |x_i
 $$
 
 ![image-20201117161647372](img/image-20201117161647372.png)
+
+
+
+### pytorch 中的Normalization 使用
+
+将输入的图像shape记为[N, C, H, W]，这几个方法主要的区别就是在，
+
+
+
+- batchNorm是在batch上，对NHW做归一化，对小batchsize效果不好；
+- layerNorm在通道方向上，对CHW归一化，主要对RNN作用明显；
+- instanceNorm在图像像素上，对HW做归一化，用在风格化迁移；
+- GroupNorm将channel分组，然后再做归一化；
+- SwitchableNorm是将BN、LN、IN结合，赋予权重，让网络自己去学习归一化层应该使用什么方法。
+
+
+
+1. batchNorm 
+
+batchNorm是在batch上，对NHW做归一化;即是将同一个batch中的所有样本的同一层特征图抽出来一起求mean和variance
+
+加快收敛速度，允许网络使用更高的学习率。可作为一个正则化器，减少对dropout的需求
+
+但是当batch size较小时(小于16时)，效果会变差，这时使用group norm可能得到的效果会更好
+
+![image-20210107100102552](img/image-20210107100102552.png)
+
+Shape:
+
+- Input: (N, C, H, W)(*N*,*C*,*H*,*W*)
+- Output: (N, C, H, W)(*N*,*C*,*H*,*W*) (same shape as input)
+
+
+
+2.InstanceNorm
+
+instanceNorm在图像像素上，对HW做归一化；即是对batch中的单个样本的每一层特征图抽出来一层层求mean和variance，与batch size无关。若特征层为1，即C=1，准则instance norm的值为输入本身
+
+
+
+Shape:
+
+- Input: (N, C, H, W)(*N*,*C*,*H*,*W*)
+- Output: (N, C, H, W)(*N*,*C*,*H*,*W*) (same shape as input)
+
+
+
+3.LayerNorm
+
+layerNorm在通道方向上，对CHW归一化；即是将batch中的单个样本的每一层特征图抽出来一起求一个mean和variance，与batch size无关，不同通道有着相同的均值和方差
+
+
+
+
+

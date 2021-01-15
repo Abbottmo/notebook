@@ -137,7 +137,19 @@ Transformer中确实没有考虑顺序信息，那怎么办呢，我们可以在
 
 
 
+#### 提取拓扑图空间特征的两种方式
 
+vertex domain （spatial domain） 把每个顶点相邻的邻居找出来
+
+spectral domain   是GCN 的理论基础 首先研究graph signal processing ，然后定义了fourier transformation ，进而定义了图卷积，最后与深度学习结合提取了graph 
+
+
+
+什么是拉普拉斯矩阵？ 为什么用拉普拉斯矩阵？
+
+![image-20210104154417992](img/image-20210104154417992.png)
+
+![image-20210104154517844](img/image-20210104154517844.png)
 
 
 
