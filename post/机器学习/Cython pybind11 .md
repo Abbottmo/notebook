@@ -119,14 +119,20 @@ m.def("add", &add, "A function which adds two numbers",
 
 
 
-
-
-
-//编译  pybind11是仅标头的库，因此无需链接到任何特殊的库，并且没有中间（魔术）转换步骤。在Linux上，可以使用以下命令来编译以上示例：
+//编译1  pybind11是仅标头的库，因此无需链接到任何特殊的库，并且没有中间（魔术）转换步骤。在Linux上，可以使用以下命令来编译以上示例：
 $ c++ -O3 -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` example.cpp -o example`python3-config --extension-suffix`
 
     
     
+    
+    
+    
+    
+    
+    
+//编译2  使用setup 编译 
+//setup.py  遇到问题，需要指定c++11
+ 
 //   src/main.cpp
 #include <pybind11/pybind11.h>
 
@@ -167,7 +173,9 @@ PYBIND11_MODULE(python_example, m) {
 #endif
 }
 
-//setup.py
+
+
+//setup.py 文件
 from setuptools import setup
 # Available at setup time due to pyproject.toml
 from pybind11.setup_helpers import Pybind11Extension, build_ext
@@ -184,35 +192,55 @@ __version__ = "0.0.1"
 #   Sort input source files if you glob sources to ensure bit-for-bit
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
+    ## pip install pybind11 方式编译
 ext_modules = [
-    Pybind11Extension("python_example",
+    Pybind11Extension("python_example",     ## pip install pybind11 方式
         ["src/main.cpp"],
         # Example: passing in the version to the compiled code
         define_macros = [('VERSION_INFO', __version__)],
+        extra_compile_args=['-std=c++11'], ## 需要指定c++11 否则会报错
         ),
 ]
 
+    ## 使用pybind11头文件方式编译 
+    from setuptools import setup
+    from setuptools import Extension
+    ext_modules = [
+    Extension(name = "python_example",     ## pip install pybind11 方式
+        source = ["src/main.cpp"],
+              include_dirs = [r'./pybind11/incude/']  ## 指定pybind11 头文件
+        # Example: passing in the version to the compiled code
+        define_macros = [('VERSION_INFO', __version__)],
+        extra_compile_args=['-std=c++11'], ## 需要指定c++11 否则会报错
+        ),
+	]
+    
 setup(
     name="python_example",
     version=__version__,
-    author="Sylvain Corlay",
-    author_email="sylvain.corlay@gmail.com",
-    url="https://github.com/pybind/python_example",
-    description="A test project using pybind11",
-    long_description="",
     ext_modules=ext_modules,
     extras_require={"test": "pytest"},
-    # Currently, build_ext only provides an optional "highest supported C++
-    # level" feature, but in the future it may provide more features.
     cmdclass={"build_ext": build_ext},
     zip_safe=False,
 )
 
 ## build
 python setup.py build_ext --inplace
+## 保存编译结果到文件
+python setup.py build_ext --inplace  >1.txt 2>&1  
 
+    
+    
+    
+//编译3 使用cmake 编译
+//CMakeLists.txt 
+cmake_minimum_required(VERSION 3.4...3.18)
+project(cmake_example)
 
-
+add_subdirectory(pybind11)
+pybind11_add_module(cmake_example src/main.cpp)
+    
+    
 ```
 
 
