@@ -219,3 +219,11 @@ The result is: 333283335000
 5.51 µs 
 ```
 
+
+
+#### 解决windows 使用pytorch 的dataloader功能时 出现pipe error的问题  
+
+![image-20210320002523281](C:\Users\Administrator\Desktop\notebook\post\机器学习\img\image-20210320002523281.png)
+
+但是我的电脑还是会出现这种错误，待测试，增加num_workers 会提高训练效率
+
