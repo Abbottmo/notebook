@@ -175,14 +175,6 @@ PYBIND11_MODULE(python_example, m) {
 
 
 
-//setup.py 文件
-from setuptools import setup
-# Available at setup time due to pyproject.toml
-from pybind11.setup_helpers import Pybind11Extension, build_ext
-from pybind11 import get_cmake_dir
-import sys
-__version__ = "0.0.1"
-
 # The main interface is through Pybind11Extension.
 # * You can add cxx_std=11/14/17, and then build_ext can be removed.
 # * You can set include_pybind11=false to add the include directory yourself,
@@ -191,6 +183,16 @@ __version__ = "0.0.1"
 # Note:
 #   Sort input source files if you glob sources to ensure bit-for-bit
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
+
+
+
+//setup.py 文件
+from setuptools import setup
+# Available at setup time due to pyproject.toml
+from pybind11.setup_helpers import Pybind11Extension, build_ext
+from pybind11 import get_cmake_dir
+import sys
+__version__ = "0.0.1"
 
     ## pip install pybind11 方式编译
 ext_modules = [
@@ -201,7 +203,6 @@ ext_modules = [
         extra_compile_args=['-std=c++11'], ## 需要指定c++11 否则会报错
         ),
 ]
-
     ## 使用pybind11头文件方式编译 
     from setuptools import setup
     from setuptools import Extension

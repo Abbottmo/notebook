@@ -16,7 +16,7 @@ Deep Transfer Learning for Person Re-identification
 
 行人重识别是一种对不同个体跨摄像头的细粒度检索任务，由于任务自身的特性，数据的标注代价远大于其他常见的视觉任务，例如图片分类（ImageNet）或者一些人脸匹配任务。目前最大的行人重识别数据集也仅仅只有数千人，十万个左右的bounding box，这对于神经网络的训练来说，并不是一个充足的大小，因此，如果能将在一个或者若干个数据集上学习到的模型进行一些简单的调节就可以应用到新的场景下降非常具有实际意义。但是实际情况是，reid的常用模型在跨数据集场景下，准确率将大大下降，远远不如在target数据集监督训练的结果。因此，通过迁移学习，将一个已经学习的比较好的模型去适应新的场景将变得非常重要。
 
-![.png](image/.png)
+![.png](img/.png)
 
 **Improving Person Re-identification by Attribute and Identity Learning**
 
@@ -32,13 +32,13 @@ Deep Transfer Learning for Person Re-identification
 
 **实例属性**：在短时间内出现，或者输入外部环境的属性，如自行车、手机等。
 
-![-1.png](image/-1.png)
+![-1.png](img/-1.png)
 
 ### **Attribute Person Recognition（APR）网络**
 
 在本节中，我们将对Attribute Person Recognition（APR）网络进行详细描述。APR网络是由基本模型组成，在损失计算前有M + 1 M +1_M_+1个 FC层，其中一个是身份分类损失，M个是属性分类损失，其中M是属性的数量。新的FC层表示为FC0，FC1，…，FCM，其中FC0用于ID分类，FC1，…，FCM用于属性识别。 预先训练的模型可以是ResNet-50 或CaffeNet。对于ResNet-50，FC层是连接的到Pool5。 对于CaffeNet，FC层已连接改为FC7。 尺寸为224 ∗ 224 224*224224∗224和227 ∗ 227 227*227227∗227的图像分别用于ResNet-50和CaffeNet。
 
-![-2.png](image/-2.png)
+![-2.png](img/-2.png)
 
 **Gated Siamese Convolutional Neural NetworkArchitecture for Human Re-Identication  ECCV 2016**
 
@@ -62,15 +62,15 @@ Deep Transfer Learning for Person Re-identification
 
 在CUHK03、Market1501、VIPeR数据集上进行了实验，证明了本文方法的有效性
 
-![-3.png](image/-3.png)
+![-3.png](img/-3.png)
 
-![-4.png](image/-4.png)
+![-4.png](img/-4.png)
 
-![-5.png](image/-5.png)
+![-5.png](img/-5.png)
 
 **End-to-End Comparative Attention Networks for Person Re-identification**
 
-![-6.png](image/-6.png)
+![-6.png](img/-6.png)
 
 整体框架 
 
@@ -80,7 +80,7 @@ softmax 用于输出预测的类别
 
 使用LSTM 产生注意力机制映射 
 
-![-7.png](image/-7.png)
+![-7.png](img/-7.png)
 
 **Person Re-Identification by Multi-Channel Parts-Based CNN with Improved**
 
@@ -104,7 +104,7 @@ an improved triplet loss function：不仅要求类内距离小于类间距离�
 
 网络设计 **按H分段**
 
-![-8.png](image/-8.png)
+![-8.png](img/-8.png)
 
 全身通道：conv:5x5 s=1 –> max-pooling:3x3 –> conv:3x3 s=1 –>max-pooling:3x3 –> fc:400
 
@@ -116,9 +116,9 @@ an improved triplet loss function：不仅要求类内距离小于类间距离�
 
 改进的loss 
 
-![-9.png](image/-9.png)
+![-9.png](img/-9.png)
 
-![-10.png](image/-10.png)
+![-10.png](img/-10.png)
 
 实验
 
@@ -150,23 +150,23 @@ an improved triplet loss function：不仅要求类内距离小于类间距离�
 
 **
 
-![-11.png](image/-11.png)
+![-11.png](img/-11.png)
 
 文章的出发点就在上面这张图。 如上图a，传统的Triplet Loss可能在test集上泛化效果一般，主要是因为类内方差依然比较大。文章对此增加了新的约束，用于**减小类内方差**和**增加类间方差**。
 
-![-12.png](image/-12.png)
+![-12.png](img/-12.png)
 
-![-13.png](image/-13.png)
+![-13.png](img/-13.png)
 
 三元损失函数  欧氏距离
 
-![-14.png](image/-14.png)
+![-14.png](img/-14.png)
 
 改进的四元损失函数   g是学习到的度量方式
 
-![-15.png](image/-15.png)
+![-15.png](img/-15.png)
 
-![-16.png](image/-16.png)
+![-16.png](img/-16.png)
 
 上式共有两项，前一项是传统的Triplet Loss，后一项用于进一步缩小类内差距。 由于前一项的重要更大，因此作者控制α1>α2.
 
@@ -176,7 +176,7 @@ an improved triplet loss function：不仅要求类内距离小于类间距离�
 
 摘要：主要由**检测器错误和姿势变化引起的行人不对准**是健壮的行人重识别（re-ID）系统的关键问题。如果对齐不良，背景噪声将严重影响功能学习和匹配过程。为了解决这个问题，本文介绍了姿态不变嵌入（PIE）作为行人描述符。首先，为了将行人与标准姿势对齐，引入了PoseBox结构，其通过姿势估计然后仿射变换生成。其次，为了减少PoseBox构造过程中姿势估计误差和信息丢失的影响，我们设计了一种Pose-Box融合（PBF）CNN架构，它将原始图像，PoseBox和姿势估计置信度作为输入。因此，所提出的PIE描述符被定义为用于检索任务的PBF网络的完全连接层。实验在Market-1501，CUHK03和VIPeR数据集上进行。我们证明Pose-Box单独产生了良好的re-ID精度，并且当集成在PBF网络中时，与最先进的方法相比，学习的PIE描述符产生了竞争性能。
 
-![-17.png](image/-17.png)
+![-17.png](img/-17.png)
 
 **Online Joint Multi-Metric Adaptation from Frequent Sharing-Subset Mining for**
 

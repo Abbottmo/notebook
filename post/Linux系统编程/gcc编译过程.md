@@ -76,3 +76,20 @@ gcc 指令
 **gcc -D 例子演示**  注册宏定义
 
 ![image-20201103002951426](img\image-20201103002951426.png)
+
+![image-20210923234100600](C:\Users\Administrator\Desktop\notebook\post\C++\img\image-20210923234100600.png)
+
+![image-20210923234313947](C:\Users\Administrator\Desktop\notebook\post\C++\img\image-20210923234313947.png)
+
+![image-20210923234434547](C:\Users\Administrator\Desktop\notebook\post\C++\img\image-20210923234434547.png)
+
+![image-20210923234555877](C:\Users\Administrator\Desktop\notebook\post\C++\img\image-20210923234555877.png)
+
+![image-20210923235549656](C:\Users\Administrator\Desktop\notebook\post\C++\img\image-20210923235549656.png)
+
+![image-20210924000028212](C:\Users\Administrator\Desktop\notebook\post\C++\img\image-20210924000028212.png)
+
+静态库编译的可执行文件会把所需要的库编译进去
+
+而动态库编译的可执行文件只有在运行时加载，所以需要指定链接库的地址
+
