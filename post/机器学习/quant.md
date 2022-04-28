@@ -8,7 +8,7 @@ FP16的普遍精度是`~5.96e−8 (6.10e−5) … 65504`，而我们模型中的
 
 而且FP16的精度下降对于大部分任务影响不是很大，甚至有些任务会提升。NVIDIA对于FP16有专门的Tensor Cores可以进行矩阵运算，相比FP32来说吞吐量提升一倍。
 
-![img](D:\notebook\post\机器学习\img\v2-0893272bd4a45b3a40b845928c4ed4ec_b.jpg)
+![img](img\v2-0893272bd4a45b3a40b845928c4ed4ec_b.jpg)
 
 **量化就是将我们训练好的模型，不论是权重、还是计算op，都转换为低精度去计算**。因为FP16的量化很简单，所以实际中我们谈论的量化更多的是**INT8的量化**，当然也有3-bit、4-bit的量化，不过目前来说比较常见比较实用的，也就是INT8量化了
 
@@ -77,7 +77,7 @@ $x_q = quantize(x,b,s) = clip(round(s\cdot x),-2^{b-1}+1,2^{b-1}-1)$
 
 卷积中最重要的就是矩阵相乘
 
-![image-20210904220123260](D:\notebook\post\机器学习\img\image-20210904220123260.png)
+![image-20210904220123260](img\image-20210904220123260.png)
 
 注意看上图输入X的维度为[m,p]而W的维度为[p,n]，因此i的范围为[0,m)，k的范围为[0,p)。W和Y同理。这里的输入和权重都是FP32精度，也就是实数。
 
@@ -91,13 +91,13 @@ $w_{i,j}=\sum_{k=1}^{p}x_{ik} \cdot w_{k,j} \approx \sum_{k=1}^{p} dequantize(x_
 
 #### 卷积 im2col
 
-![图片](D:\notebook\post\机器学习\img\640wgwrjgpwrgjw)
+![图片](img\640wgwrjgpwrgjw)
 
 
 
 多通道的im2col的过程，是首先im2col第一通道，然后在im2col第二通道，最后im2col第三通道。需要注意各通道im2col的数据在内存中也是连续存储的，全部弄好后拼成这样的矩阵！
 
-![图片](D:\notebook\post\机器学习\img\640wgrejgpwrbnwpbnprbnp)
+![图片](img\640wgrejgpwrbnwpbnprbnp)
 
-![图片](D:\notebook\post\机器学习\img\640vsjdjgpwgjwprgjwrgnw;rgnw)
+![图片](img\640vsjdjgpwgjwprgjwrgnw;rgnw)
 
